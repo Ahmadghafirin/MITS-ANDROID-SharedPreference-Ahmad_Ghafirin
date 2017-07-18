@@ -86,4 +86,12 @@
         android:onClick="goHome"
         android:text="register" />
 
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="#ffffff"
+        android:padding="10dp" />
+
 </LinearLayout>

@@ -37,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
         etAddress = (EditText) findViewById(R.id.et_address);
         etNoHp = (EditText) findViewById(R.id.et_no_hp);
         etEmail = (EditText) findViewById(R.id.et_email);
+
+        TextView tvResult = (TextView) findViewById(R.id.tv_result);
+
+        Person person = new Person(sharedPreferences.getString(KEY_NAME, ""),
+                sharedPreferences.getString(KEY_ADDRESS, ""),
+                sharedPreferences.getInt(KEY_NO_HP, 0), sharedPreferences.getString(KEY_EMAIL, ""));
+        tvResult.setText(person.info());
     }
 
     private void setPerson(Person person) {
