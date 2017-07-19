@@ -18,6 +18,8 @@ import static com.example.ahmad.sharedpreference.MainActivity.KEY_NO_HP;
 
 public class HomeActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
+    private String name, address, noHp, email;
+    private TextView tvUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,27 +27,53 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         sharedPreferences = getSharedPreferences(MainActivity.PREFERENCE_NAME, MODE_PRIVATE);
+
+        name = sharedPreferences.getString(MainActivity.KEY_NAME, "");
+        address = sharedPreferences.getString(MainActivity.KEY_ADDRESS, "");
+        noHp = sharedPreferences.getString(MainActivity.KEY_NO_HP, "");
+        email = sharedPreferences.getString(MainActivity.KEY_EMAIL, "");
+
+        tvUser = (TextView) findViewById(R.id.tv_info);
+
+        tvUser.setText(result());
     }
 
-    private Person getPerson() {
-        Person person = new Person(sharedPreferences.getString(KEY_NAME, ""),
-                sharedPreferences.getString(KEY_ADDRESS, ""),
-                sharedPreferences.getInt(KEY_NO_HP, 0), sharedPreferences.getString(KEY_EMAIL, ""));
-        return person;
+    public void goLogout(View view) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
-    public void goInfo(View view) {
-        AlertDialog.Builder dialogInfo = new AlertDialog.Builder(HomeActivity.this);
-        dialogInfo
-                .setTitle("Info Person")
-                .setMessage(getPerson().info())
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog dialog = dialogInfo.create();
-        dialog.show();
+    public void goEdit(View view) {
+        Intent intent = new Intent(this, EditActivity.class);
+        startActivityForResult(intent, EditActivity.RESULT_EDIT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String name, address, noHp, email;
+        if (resultCode == EditActivity.RESULT_EDIT) {
+
+            name = data.getStringExtra(MainActivity.KEY_NAME);
+            address = data.getStringExtra(MainActivity.KEY_ADDRESS);
+            noHp = data.getStringExtra(MainActivity.KEY_NO_HP);
+            email = data.getStringExtra(MainActivity.KEY_EMAIL);
+
+            tvUser.setText(result());
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(MainActivity.KEY_NAME, name);
+            editor.putString(MainActivity.KEY_ADDRESS, address);
+            editor.putString(MainActivity.KEY_NO_HP, noHp);
+            editor.putString(MainActivity.KEY_EMAIL, email);
+            editor.apply();
+        }
+    }
+
+    public String result() {
+        return "Hello my Name is :" + name + "\nmy Address is at :" + address +
+                "\nmy Phone Number is :" + noHp + "\nmy Email is :" + email;
     }
 }

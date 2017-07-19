@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,12 +18,14 @@ import static android.content.Context.MODE_PRIVATE;
 public class MainActivity extends AppCompatActivity {
     private EditText etName, etAddress, etNoHp, etEmail;
 
+    public static final String TAG = "TagMainActivity";
     public static final String KEY_NAME = "name";
     public static final String KEY_ADDRESS = "address";
     public static final String KEY_NO_HP = "nohp";
     public static final String KEY_EMAIL = "email";
     public static final String PREFERENCE_NAME = "sharedpreference";
     public static final String KEY_INFO = "info";
+    public static final String ISLOGGEDIN = "isloggedin";
 
     private SharedPreferences sharedPreferences;
 
@@ -32,31 +35,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sharedPreferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean(ISLOGGEDIN, false);
+        Log.d("isloggedin", String.valueOf(isLoggedIn));
+        if (isLoggedIn) openHome();
+        setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate is called");
 
         etName = (EditText) findViewById(R.id.et_name);
         etAddress = (EditText) findViewById(R.id.et_address);
         etNoHp = (EditText) findViewById(R.id.et_no_hp);
         etEmail = (EditText) findViewById(R.id.et_email);
 
-        TextView tvResult = (TextView) findViewById(R.id.tv_result);
-
-        Person person = new Person(sharedPreferences.getString(KEY_NAME, ""),
-                sharedPreferences.getString(KEY_ADDRESS, ""),
-                sharedPreferences.getInt(KEY_NO_HP, 0), sharedPreferences.getString(KEY_EMAIL, ""));
-        tvResult.setText(person.info());
     }
 
-    private void setPerson(Person person) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_NAME, person.getName());
-        editor.putString(KEY_ADDRESS, person.getAddress());
-        editor.putInt(KEY_NO_HP, person.getNoHp());
-        editor.putString(KEY_EMAIL, person.getEmail());
-        editor.commit();
-    }
-
-
-    public void goHome(View view) {
+    public void goRegister(View view) {
         String nama = etName.getText().toString();
         String address = etAddress.getText().toString();
         String noHp = etNoHp.getText().toString();
@@ -82,12 +74,20 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         } else {
-            Person person = new Person(nama, address, Integer.valueOf(noHp), email);
-            setPerson(person);
-
-            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-            startActivity(intent);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(KEY_NAME, nama);
+            editor.putString(KEY_ADDRESS, address);
+            editor.putString(KEY_NO_HP, noHp);
+            editor.putString(KEY_EMAIL, email);
+            editor.putBoolean(ISLOGGEDIN, true);
+            editor.apply();
+            openHome();
         }
 
+    }
+
+    private void openHome() {
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 }
