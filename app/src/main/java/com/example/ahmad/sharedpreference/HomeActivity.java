@@ -28,14 +28,15 @@ public class HomeActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(MainActivity.PREFERENCE_NAME, MODE_PRIVATE);
 
-        name = sharedPreferences.getString(MainActivity.KEY_NAME, "");
+        /*name = sharedPreferences.getString(MainActivity.KEY_NAME, "");
         address = sharedPreferences.getString(MainActivity.KEY_ADDRESS, "");
         noHp = sharedPreferences.getString(MainActivity.KEY_NO_HP, "");
-        email = sharedPreferences.getString(MainActivity.KEY_EMAIL, "");
+        email = sharedPreferences.getString(MainActivity.KEY_EMAIL, "");*/
+
 
         tvUser = (TextView) findViewById(R.id.tv_info);
 
-        tvUser.setText(result());
+        tvUser.setText(getPerson().toString());
     }
 
     public void goLogout(View view) {
@@ -75,5 +76,13 @@ public class HomeActivity extends AppCompatActivity {
     public String result() {
         return "Hello my Name is :" + name + "\nmy Address is at :" + address +
                 "\nmy Phone Number is :" + noHp + "\nmy Email is :" + email;
+    }
+
+    private Person getPerson() {
+        Person person = new Person(sharedPreferences.getString(MainActivity.KEY_NAME, ""),
+                sharedPreferences.getString(MainActivity.KEY_ADDRESS, ""),
+                sharedPreferences.getString(MainActivity.KEY_NO_HP, ""),
+                sharedPreferences.getString(MainActivity.KEY_EMAIL, ""));
+        return person;
     }
 }
