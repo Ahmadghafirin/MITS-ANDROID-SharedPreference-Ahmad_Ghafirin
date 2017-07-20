@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.ahmad.sharedpreference.auth.LoginActivity;
+import com.example.ahmad.sharedpreference.utility.SessionManager;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override

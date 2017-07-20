@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.ahmad.sharedpreference.LoginActivity">
+    tools:context="com.example.ahmad.sharedpreference.auth.LoginActivity">
 
     <EditText
         android:id="@+id/et_login_email"

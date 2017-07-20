@@ -1,10 +1,14 @@
-package com.example.ahmad.sharedpreference;
+package com.example.ahmad.sharedpreference.auth;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.ahmad.sharedpreference.MainActivity;
+import com.example.ahmad.sharedpreference.R;
+import com.example.ahmad.sharedpreference.utility.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPass;

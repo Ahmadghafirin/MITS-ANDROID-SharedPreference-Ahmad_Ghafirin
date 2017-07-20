@@ -1,19 +1,14 @@
 package com.example.ahmad.sharedpreference;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import static android.R.attr.password;
-import static android.content.Context.MODE_PRIVATE;
+import com.example.ahmad.sharedpreference.R;
+import com.example.ahmad.sharedpreference.auth.LoginActivity;
+import com.example.ahmad.sharedpreference.utility.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
     private SessionManager sessionManager;

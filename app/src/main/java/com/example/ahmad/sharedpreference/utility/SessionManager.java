@@ -1,7 +1,9 @@
-package com.example.ahmad.sharedpreference;
+package com.example.ahmad.sharedpreference.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.example.ahmad.sharedpreference.model.User;
 
 /**
  * Created by ahmad on 19/07/17.
@@ -36,23 +38,23 @@ public class SessionManager {
         return instance;
     }
 
-    public void setPerson(Person person) {
-        editor.putString(KEY_NAME, person.getName());
-        editor.putString(KEY_ADDRESS, person.getAddress());
-        editor.putString(KEY_NO_HP, person.getNoHp());
-        editor.putString(KEY_EMAIL, person.getEmail());
-        editor.putString(KEY_PASS, person.getPass());
+    public void setPerson(User user) {
+        editor.putString(KEY_NAME, user.getName());
+        editor.putString(KEY_ADDRESS, user.getAddress());
+        editor.putString(KEY_NO_HP, user.getNoHp());
+        editor.putString(KEY_EMAIL, user.getEmail());
+        editor.putString(KEY_PASS, user.getPass());
         setLogin(true);
         editor.commit();
     }
 
-    public Person getPerson() {
-        Person person = new Person(sharedPreferences.getString(KEY_NAME, ""),
+    public User getPerson() {
+        User user = new User(sharedPreferences.getString(KEY_NAME, ""),
                 sharedPreferences.getString(KEY_ADDRESS, ""),
                 sharedPreferences.getString(KEY_NO_HP, ""),
                 sharedPreferences.getString(KEY_EMAIL, ""),
                 sharedPreferences.getString(KEY_PASS, ""));
-        return person;
+        return user;
     }
 
     public void setLogin(boolean isLogin) {

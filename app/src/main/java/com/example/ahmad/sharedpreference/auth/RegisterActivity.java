@@ -1,13 +1,19 @@
-package com.example.ahmad.sharedpreference;
+package com.example.ahmad.sharedpreference.auth;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.ahmad.sharedpreference.model.User;
+import com.example.ahmad.sharedpreference.R;
+import com.example.ahmad.sharedpreference.utility.DataBaseHandler;
+import com.example.ahmad.sharedpreference.utility.SessionManager;
+
 public class RegisterActivity extends AppCompatActivity {
 
+    private final String TAG = RegisterActivity.class.getSimpleName();
     private EditText etName, etAddress, etNoHp, etEmail, etPass;
 
     @Override
@@ -58,11 +64,16 @@ public class RegisterActivity extends AppCompatActivity {
             return;
 
         } else {
-            Person person = new Person(nama, address, noHp, email, pass);
-            if (person != null) {
-                SessionManager.getInstance().setPerson(person);
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
+            DataBaseHandler baseHandler = DataBaseHandler.getInstance();
+
+            User user = new User(nama, address, noHp, email, pass);
+            if (user != null) {
+                /*SessionManager.getInstance().setPerson(user);
+                */
+                baseHandler.addUser(user);
+                for (User user1 : baseHandler.getAllUser()) {
+                    Log.d(TAG, "Data : " + user1.toString());
+                }
             }
         }
     }

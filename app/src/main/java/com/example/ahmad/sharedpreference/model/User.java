@@ -1,4 +1,4 @@
-package com.example.ahmad.sharedpreference;
+package com.example.ahmad.sharedpreference.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,15 +7,19 @@ import android.os.Parcelable;
  * Created by ahmad on 19/07/17.
  */
 
-public class Person implements Parcelable {
+public class User implements Parcelable {
     private String name, address, noHp, email, pass;
+    private int id;
 
-    public Person(String name, String address, String noHp, String email, String pass) {
+    public User(String name, String address, String noHp, String email, String pass) {
         this.name = name;
         this.address = address;
         this.noHp = noHp;
         this.email = email;
         this.pass = pass;
+    }
+
+    public User() {
     }
 
     public String getPass() {
@@ -38,7 +42,31 @@ public class Person implements Parcelable {
         return email;
     }
 
-    protected Person(Parcel in) {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setNoHp(String noHp) {
+        this.noHp = noHp;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    protected User(Parcel in) {
         name = in.readString();
         address = in.readString();
         noHp = in.readString();
@@ -46,15 +74,15 @@ public class Person implements Parcelable {
         pass = in.readString();
     }
 
-    public static final Creator<Person> CREATOR = new Creator<Person>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
-        public Person createFromParcel(Parcel in) {
-            return new Person(in);
+        public User createFromParcel(Parcel in) {
+            return new User(in);
         }
 
         @Override
-        public Person[] newArray(int size) {
-            return new Person[size];
+        public User[] newArray(int size) {
+            return new User[size];
         }
     };
 
