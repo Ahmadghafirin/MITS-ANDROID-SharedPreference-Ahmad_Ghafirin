@@ -16,7 +16,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="Register"></activity>
+            android:label="Main"></activity>
 
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
@@ -27,8 +27,8 @@
         </activity>
 
         <activity
-            android:name=".HomeActivity"
-            android:label="Home"
+            android:name=".RegisterActivity"
+            android:label="Register"
             android:theme="@style/AppTheme.NoActionBar" />
 
     </application>

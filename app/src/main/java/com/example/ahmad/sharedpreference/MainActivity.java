@@ -16,62 +16,27 @@ import static android.R.attr.password;
 import static android.content.Context.MODE_PRIVATE;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText etName, etAddress, etNoHp, etEmail, etPass;
+    private SessionManager sessionManager;
+    private TextView tvUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        etName = (EditText) findViewById(R.id.et_name);
-        etAddress = (EditText) findViewById(R.id.et_address);
-        etNoHp = (EditText) findViewById(R.id.et_no_hp);
-        etEmail = (EditText) findViewById(R.id.et_email);
-        etPass = (EditText) findViewById(R.id.et_pass);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        sessionManager = SessionManager.getInstance();
+
+        tvUser = (TextView) findViewById(R.id.tv_info);
+
+        tvUser.setText(sessionManager.getPerson().toString());
+
 
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
+    public void goLogout(View view) {
+        SessionManager.getInstance().clear();
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
-        return super.onSupportNavigateUp();
-    }
-
-    public void goRegister(View view) {
-        String nama = etName.getText().toString();
-        String address = etAddress.getText().toString();
-        String noHp = etNoHp.getText().toString();
-        String email = etEmail.getText().toString();
-        String pass = etPass.getText().toString();
-
-        if (nama.isEmpty()) {
-            etName.setError("Name must be filled!");
-            etName.requestFocus();
-            return;
-
-        } else if (address.isEmpty()) {
-            etAddress.setError("Address must be filled!");
-            etAddress.requestFocus();
-            return;
-        } else if (noHp.isEmpty()) {
-            etNoHp.setError("Phone Number must be filled!");
-            etNoHp.requestFocus();
-            return;
-
-        } else if (email.isEmpty()) {
-            etEmail.setError("Email must be filled!");
-            etEmail.requestFocus();
-            return;
-
-        } else {
-            Person person = new Person(nama, address, noHp, email, pass);
-            if (person != null) {
-                SessionManager.getInstance().setPerson(person);
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
-            }
-        }
     }
 }

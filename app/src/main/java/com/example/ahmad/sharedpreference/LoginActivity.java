@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPass;
@@ -45,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         )) {
 
             sessionManager.setLogin(true);
-            Intent intent = new Intent(this, HomeActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
@@ -53,6 +52,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void goRegisterPage(View view) {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, RegisterActivity.class));
     }
 }
