@@ -77,6 +77,23 @@
         android:layout_gravity="center"
         android:background="#000000" />
 
+    <EditText
+        android:id="@+id/et_pass"
+        android:layout_width="350dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:background="#d3d3d3"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="5dp"
+        android:textColorHint="#000000" />
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:background="#000000" />
+
     <Button
         android:id="@+id/bt_gohome"
         android:layout_width="360dp"

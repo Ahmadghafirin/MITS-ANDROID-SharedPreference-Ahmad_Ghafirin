@@ -8,13 +8,18 @@ import android.os.Parcelable;
  */
 
 public class Person implements Parcelable {
-    private String name, address, noHp, email;
+    private String name, address, noHp, email, pass;
 
-    public Person(String name, String address, String noHp, String email) {
+    public Person(String name, String address, String noHp, String email, String pass) {
         this.name = name;
         this.address = address;
         this.noHp = noHp;
         this.email = email;
+        this.pass = pass;
+    }
+
+    public String getPass() {
+        return pass;
     }
 
     public String getName() {
@@ -38,6 +43,7 @@ public class Person implements Parcelable {
         address = in.readString();
         noHp = in.readString();
         email = in.readString();
+        pass = in.readString();
     }
 
     public static final Creator<Person> CREATOR = new Creator<Person>() {
@@ -63,6 +69,7 @@ public class Person implements Parcelable {
         dest.writeString(address);
         dest.writeString(noHp);
         dest.writeString(email);
+        dest.writeString(pass);
     }
 
     @Override

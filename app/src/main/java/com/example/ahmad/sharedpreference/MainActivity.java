@@ -16,36 +16,27 @@ import static android.R.attr.password;
 import static android.content.Context.MODE_PRIVATE;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText etName, etAddress, etNoHp, etEmail;
-
-    public static final String TAG = "TagMainActivity";
-    public static final String KEY_NAME = "name";
-    public static final String KEY_ADDRESS = "address";
-    public static final String KEY_NO_HP = "nohp";
-    public static final String KEY_EMAIL = "email";
-    public static final String PREFERENCE_NAME = "sharedpreference";
-    public static final String KEY_INFO = "info";
-    public static final String ISLOGGEDIN = "isloggedin";
-
-    private SharedPreferences sharedPreferences;
+    private EditText etName, etAddress, etNoHp, etEmail, etPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
-        boolean isLoggedIn = sharedPreferences.getBoolean(ISLOGGEDIN, false);
-        Log.d("isloggedin", String.valueOf(isLoggedIn));
-        if (isLoggedIn) openHome();
-        setContentView(R.layout.activity_main);
-        Log.d(TAG, "onCreate is called");
-
         etName = (EditText) findViewById(R.id.et_name);
         etAddress = (EditText) findViewById(R.id.et_address);
         etNoHp = (EditText) findViewById(R.id.et_no_hp);
         etEmail = (EditText) findViewById(R.id.et_email);
+        etPass = (EditText) findViewById(R.id.et_pass);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 
     public void goRegister(View view) {
@@ -53,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         String address = etAddress.getText().toString();
         String noHp = etNoHp.getText().toString();
         String email = etEmail.getText().toString();
+        String pass = etPass.getText().toString();
 
         if (nama.isEmpty()) {
             etName.setError("Name must be filled!");
@@ -74,20 +66,12 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         } else {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(KEY_NAME, nama);
-            editor.putString(KEY_ADDRESS, address);
-            editor.putString(KEY_NO_HP, noHp);
-            editor.putString(KEY_EMAIL, email);
-            editor.putBoolean(ISLOGGEDIN, true);
-            editor.apply();
-            openHome();
+            Person person = new Person(nama, address, noHp, email, pass);
+            if (person != null) {
+                SessionManager.getInstance().setPerson(person);
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+            }
         }
-
-    }
-
-    private void openHome() {
-        startActivity(new Intent(this, HomeActivity.class));
-        finish();
     }
 }
