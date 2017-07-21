@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.example.ahmad.sharedpreference.MainActivity;
 import com.example.ahmad.sharedpreference.R;
+import com.example.ahmad.sharedpreference.utility.DataBaseHandler;
 import com.example.ahmad.sharedpreference.utility.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     public void goLogin(View view) {
         String email = etEmail.getText().toString();
         String pass = etPass.getText().toString();
+
+        DataBaseHandler dataBaseHandler = DataBaseHandler.getInstance();
 
         if (email.isEmpty()) {
             etEmail.setError("Email must be filled!");

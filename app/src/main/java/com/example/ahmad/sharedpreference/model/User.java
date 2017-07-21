@@ -102,7 +102,7 @@ public class User implements Parcelable {
 
     @Override
     public String toString() {
-        return "Hello My Name is :" + name + "\nMy Address is at :" + address +
-                "\nMy Phone Number is :" + noHp + "\nMy Email is :" + email;
+        return "Name :" + name + "\tAddress :" + address +
+                "\tPhone Number :" + pass + "\tEmail :" + noHp + "\tPassword :" + email;
     }
 }

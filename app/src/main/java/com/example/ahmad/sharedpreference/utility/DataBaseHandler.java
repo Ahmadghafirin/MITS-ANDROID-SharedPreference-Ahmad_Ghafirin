@@ -18,7 +18,7 @@ import java.util.List;
 
 public class DataBaseHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 10;
     private static final String DATABASE_NAME = "sqlite";
     private static final String TABLE_USER = "user";
     private static final String KEY_ID = "id";
@@ -50,6 +50,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         String CREATE_USER = "CREATE TABLE " + TABLE_USER + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_NAME + " TEXT,"
+                + KEY_ADDRESS + " TEXT,"
                 + KEY_EMAIL + " TEXT,"
                 + KEY_PASS + " TEXT,"
                 + KEY_NO_HP + " TEXT" + ")";
@@ -67,9 +68,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, user.getName());
         values.put(KEY_ADDRESS, user.getAddress());
+        values.put(KEY_NO_HP, user.getNoHp());
         values.put(KEY_EMAIL, user.getEmail());
         values.put(KEY_PASS, user.getPass());
-        values.put(KEY_NO_HP, user.getNoHp());
 
         sqLiteDatabase.insert(TABLE_USER, null, values);
         Log.d(TAG, "insert table user success !");
